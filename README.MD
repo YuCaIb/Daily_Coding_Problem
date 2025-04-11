@@ -1,1 +1,4 @@
-"# Daily problems has been solved by me 'Yucaib', By dailycodingproblem.com" 
+# Daily problems has been solved by me, Yucaib 
+
+# By www.dailycodingproblem.com
+
