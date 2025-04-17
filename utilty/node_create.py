@@ -12,16 +12,6 @@ class Node:
         self.right = right
 
 
-# I created a node in here
-tree = Node(0,
-            Node(1),
-            Node(0,
-                 Node(1, Node(1), Node(1)),
-                 Node(0)
-                 )
-            )
-
-
 # this is for visualisation
 def add_edges(G, node, parent_id=None, node_id=[0], labels={}):
     if node is None:
@@ -42,15 +32,25 @@ def add_edges(G, node, parent_id=None, node_id=[0], labels={}):
     add_edges(G, node.right, current_id, node_id, labels)
 
 
-G = nx.DiGraph()
-labels = {}
-add_edges(G, tree, labels=labels)
+def hierarchy_pos(G, root, width=1.0, vert_gap=0.2, vert_loc=0, xcenter=0.5, pos=None, parent=None):
+    if pos is None:
+        pos = {root: (xcenter, vert_loc)}
+    else:
+        pos[root] = (xcenter, vert_loc)
+    children = list(G.successors(root))
+    if len(children) != 0:
+        dx = width / len(children)
+        nextx = xcenter - width / 2 - dx / 2
+        for child in children:
+            nextx += dx
+            pos = hierarchy_pos(G, child, width=dx, vert_gap=vert_gap,
+                                vert_loc=vert_loc - vert_gap, xcenter=nextx, pos=pos,
+                                parent=root)
+    return pos
 
-pos = nx.spring_layout(G, seed=42)
+def add_two(x):
+    return x + 2
 
-plt.figure(figsize=(10, 8))
-nx.draw(G, pos, with_labels=False, arrows=False, node_size=1500, node_color='skyblue', edge_color='gray')
-nx.draw_networkx_labels(G, pos, labels, font_size=14, font_color='black')
-plt.title("Binary Tree Visualization (spring layout)")
-plt.axis('off')
-plt.show()
+
+
+__all__ = ['Node', 'add_edges', 'hierarchy_pos']
