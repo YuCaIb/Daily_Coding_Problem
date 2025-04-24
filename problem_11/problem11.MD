@@ -1,17 +1,9 @@
 Good morning! Here's your coding interview problem for today.
 
-This problem was asked by Google.
+This problem was asked by Twitter.
 
-A unival tree (which stands for "universal value") is a tree where all nodes under it have the same value.
+Implement an autocomplete system. That is, given a query string s and a set of all possible query strings, return all strings in the set that have s as a prefix.
 
-Given the root to a binary tree, count the number of unival subtrees.
+For example, given the query string de and the set of strings [dog, deer, deal], return [deer, deal].
 
-For example, the following tree has 5 unival subtrees:
-
-   0
-  / \
- 1   0
-    / \
-   1   0
-  / \
- 1   1
+Hint: Try preprocessing the dictionary into a more efficient data structure to speed up queries.
